@@ -1,0 +1,59 @@
+﻿@model employeeManagement.ViewModels.HomeDetailsViewModel
+<html>
+	<head>
+		<title>
+
+		</title>
+	</head>
+
+	<body>
+		<h3>@Model.PageTitle</h3>
+		@*@{
+			This piece of code is used in viewData
+			//retrieving data as employee type
+			var employee = ViewData.Employee as employeeManagement.Models.Employee;
+		}*@
+	@*This is view bag approach
+		<div>
+			Name: @ViewBag.Employee.Name
+		</div>
+		<div>
+		Email: @ViewBag.Employee.Email
+		</div>
+		<div>
+		Department: @ViewBag.Employee.Department
+		</div>
+		<div>
+		ID: @ViewBag.Employee.Id
+		</div>*@
+
+		@* strongly typed
+		<div>
+			Name: @Model.Name
+		</div>
+		<div>
+			Email: @Model.Email
+		</div>
+		<div>
+			Department: @Model.Department
+		</div>
+		<div>
+			ID: @Model.Id
+		</div>*@
+
+		@*View model approach*@
+		<div>
+			Name: @Model.Employee.Name
+		</div>
+		<div>
+			Email: @Model.Employee.Email
+		</div>
+		<div>
+			Department: @Model.Employee.Department
+		</div>
+		<div>
+			ID: @Model.Employee.Id
+		</div>
+	</body>
+
+</html>
