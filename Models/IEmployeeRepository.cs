@@ -4,5 +4,7 @@
     {
         //returns an object of type Employee
         Employee GetEmployee(int id);
+
+        IEnumerable<Employee> GetAllEmployees(); 
     }
 }

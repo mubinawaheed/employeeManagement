@@ -18,5 +18,9 @@
             return _employeeList.FirstOrDefault(e => e.Id == id) ?? throw new InvalidOperationException($"Employee with ID {id} not found");
             // ?? this is null-coalescing  operator
         }
+
+        public IEnumerable<Employee> GetAllEmployees() {
+            return _employeeList;
+        } 
     }
 }

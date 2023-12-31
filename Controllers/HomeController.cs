@@ -15,10 +15,10 @@ namespace employeeManagement.Controllers
         {
             _employeeRepository = employeeRepository;
         }
-        public string Index()
+        public ViewResult Index()
         {
-            //return Json(new { id = 1, name = "Mubina" });
-            return _employeeRepository.GetEmployee(1).Email??"Data not found";
+            var model = _employeeRepository.GetAllEmployees();
+            return View(model);
         }
         public ViewResult Details()
         {
