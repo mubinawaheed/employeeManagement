@@ -9,6 +9,10 @@
     <div>
         @*View specific content will be injected here*@
         @RenderBody()
-    </div>
+	</div>
+    @if (IsSectionDefined("Scripts"))
+    {
+        @RenderSection("Scripts", required: true)
+    }
 </body>
 </html>
