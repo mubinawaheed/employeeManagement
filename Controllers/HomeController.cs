@@ -20,10 +20,11 @@ namespace employeeManagement.Controllers
             var model = _employeeRepository.GetAllEmployees();
             return View(model);
         }
-        public ViewResult Details()
+        public ViewResult Details(int id)
         {
             //we can also return the data as ObjectResult type. Also, If we are building API, we'll return modeldata as json type, else we return a view type result.
-            Employee model = _employeeRepository.GetEmployee(1);
+            
+            Employee model = _employeeRepository.GetEmployee(id); 
 
             //View model approach
             HomeDetailsViewModel viewModel = new HomeDetailsViewModel()
