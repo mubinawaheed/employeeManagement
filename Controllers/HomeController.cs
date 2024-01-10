@@ -6,7 +6,9 @@ using System;
 
 namespace employeeManagement.Controllers
 {
-    public class HomeController : Controller
+	//[Route("Home")]
+	[Route("[controller]/[action]")] //Attribute routing aslo supports token replacement. controller is replaced with class name i.e. HOME and action is replaced with method name
+	public class HomeController : Controller
     {
         private readonly IEmployeeRepository _employeeRepository;
 
@@ -15,16 +17,22 @@ namespace employeeManagement.Controllers
         {
             _employeeRepository = employeeRepository;
         }
-        public ViewResult Index()
+        [Route("")]
+		//[Route("Index")]
+		[Route("~/home")]
+		[Route("~/")]
+		public ViewResult Index()
         {
             var model = _employeeRepository.GetAllEmployees();
             return View(model);
         }
-        public ViewResult Details(int id)
+		//[Route("details/{id?}")] //question mark makes the id param optional
+		[Route("{id?}")]
+		public ViewResult Details(int? id)
         {
             //we can also return the data as ObjectResult type. Also, If we are building API, we'll return modeldata as json type, else we return a view type result.
             
-            Employee model = _employeeRepository.GetEmployee(id); 
+            Employee model = _employeeRepository.GetEmployee(id??1); 
 
             //View model approach
             HomeDetailsViewModel viewModel = new HomeDetailsViewModel()
