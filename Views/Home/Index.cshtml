@@ -19,6 +19,15 @@
 				<td>@employee.Name</td>
 				<td>@employee.Department</td>
 				<td>@employee.Email</td>
+				<td>
+						
+					@*@Html.ActionLink("View", "details", "home", new {id =@employee.Id})
+						<a href="@Url.Action("details", "home", new { id = @employee.Id })" class="btn btn-secondary btn-sm">View</a>
+					<a href="/home/details/@employee.Id" class="btn btn-secondary btn-sm" role="button">View details</a>*@
+
+					@*using anchor tag helper*@
+						<a asp-controller="home" asp-action="details" asp-route-id="@employee.Id" class="btn btn-secondary btn-sm">View</a>
+				</td>
 			</tr>
 				
 		}
