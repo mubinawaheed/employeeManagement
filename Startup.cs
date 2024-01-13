@@ -50,8 +50,14 @@ namespace employeeManagement
             });
 
             app.UseStaticFiles();
-            //app.UseMvcWithDefaultRoute();
-            app.UseMvc();
+			//app.UseMvcWithDefaultRoute();
+
+			//conventional routing
+			app.UseMvc(routes =>
+			{
+				routes.MapRoute(name: "default", template: "api/{controller=Home}/{action=Index}/{id?}");
+			}); //1st param: route name 2nd param: template
+
 
             //5th middleware. This is a terminal middleware
             app.Run(async (context) =>
