@@ -15,7 +15,8 @@
 <div>
 	ID: @Model.Employee.Id
 </div>
-<img src="~/images/users.jpg" />
+
+<img src="~/images/users.jpg" asp-append-version="true" />
 <a asp-controller="home" asp-action="Index" class="btn btn-secondary btn-sm">Back</a>
 
 @section Scripts{
