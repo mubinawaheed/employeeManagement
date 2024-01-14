@@ -1,5 +1,5 @@
 ﻿@model Employee
-
+@inject IEmployeeRepository _empRepository
 @{
 
 	ViewBag.Title = "Add Employee";
@@ -9,7 +9,7 @@
 
 		<label class="col-sm-2 col-form-label" asp-for="Name"></label>
 		<div class="col-sm-10">
-			<input class="form-control w-50" asp-for="Name" />
+			<input class="form-control w-75" asp-for="Name" />
 			@* <span class="text-danger" asp-validation-for="Name"></span> *@
 		</div>
 	</div>
@@ -17,7 +17,7 @@
 	<div class="form-group row my-2">
 		<label class="col-sm-2 col-form-label" asp-for="Email"></label>
 		<div class="col-sm-10">
-			<input type="email" class="form-control w-50" asp-for="Email"  />
+			<input type="email" class="form-control w-75" asp-for="Email"  />
 			@* <span class="text-danger" asp-validation-for="Email"></span> *@
 
 		</div>
@@ -27,18 +27,23 @@
 		<label class="col-sm-2 col-form-label" asp-for="Department"></label>
 		<div class="col-sm-10">
 
-			<select style="height: 35px; border-color: #dee2e6; border-radius:5px;" class="custom-select w-50" asp-for="Department" asp-items="Html.GetEnumSelectList<Dept>()">
+			<select style="height: 36px; border-color: #dee2e6; border-radius:5px;"
+			class="form-control w-75" 
+			asp-for="Department" asp-items="Html.GetEnumSelectList<Dept>()">
+
 			<option value="">Please Select</option>
 		</select>
 		@* <span class="text-danger" asp-validation-for="Department"></span> *@
 	 </div> 
-
 	</div>
-	<div asp-validation-summary="All" class="text-danger">
 
+	<div asp-validation-summary="All" class="text-danger"></div>
+	<div class="form-group row my-2">
+		<p class="text-success col-sm-10">Total Employees = @_empRepository.GetAllEmployees().Count() </p>
 	</div>
 	<div>
 		<button class="btn btn-primary my-2" type="submit">Submit</button>
 	</div>
+
 
 </form>

@@ -23,9 +23,11 @@ namespace employeeManagement
         {
 			services.AddControllersWithViews().AddRazorRuntimeCompilation();
 			services.AddMvc(options => options.EnableEndpointRouting = false);
-            services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
+            //services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
+            //services.AddScoped<IEmployeeRepository, MockEmployeeRepository>();
+			services.AddTransient<IEmployeeRepository, MockEmployeeRepository>();
 
-        }
+		}
         //This method gets called by the runtime
         public void Configure(IApplicationBuilder app /*<--this is an interface*/, IWebHostEnvironment env, ILogger<Startup> logger)
         {

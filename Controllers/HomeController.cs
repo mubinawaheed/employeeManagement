@@ -46,7 +46,7 @@ namespace employeeManagement.Controllers
             if (ModelState.IsValid)
             {
                 Employee newUser = _employeeRepository.AddEmployee(employee);
-                return RedirectToAction("details", new { id = newUser.Id });
+               // return RedirectToAction("details", new { id = newUser.Id });
             }
             return View();
 
