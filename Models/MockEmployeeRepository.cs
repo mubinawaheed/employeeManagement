@@ -9,11 +9,11 @@
         {
             _employeeList = new List<Employee>()
             {
-                new Employee() {Id=1, Name="Mubina", Department="CS", Email="mubina@gmail.com"},
-                new Employee() {Id=2, Name="Samra", Department="CS", Email="samra@gmail.com"},
-				new Employee() {Id=3, Name="Abdullah", Department="IVS", Email="abdullah@gmail.com"},
+                new Employee() {Id=1, Name="Mubina", Department=Dept.HR, Email="mubina@gmail.com"},
+                new Employee() {Id=2, Name="Samra", Department=Dept.IT, Email="samra@gmail.com"},
+				new Employee() {Id=3, Name="Abdullah", Department=Dept.CS, Email="abdullah@gmail.com"},
 
-			    new Employee() {Id=4, Name="Ali", Department="CS", Email="ali@gmail.com"}
+			    new Employee() {Id=4, Name="Ali", Department=Dept.IT, Email="ali@gmail.com"}
             };
         }
         public Employee GetEmployee(int id)

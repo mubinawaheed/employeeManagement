@@ -39,5 +39,10 @@ namespace employeeManagement.Controllers
             return View(viewModel); 
 
         }
+
+        public ViewResult Create()
+        {
+            return View();
+        }
     }
 }
