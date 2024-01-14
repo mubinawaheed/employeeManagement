@@ -25,9 +25,13 @@
 
 	<div class="form-group row my-2">
 		<label class="col-sm-2 col-form-label" asp-for="Department"></label>
-		<select class="custom-select w-50" asp-for="Department" asp-items="Html.GetEnumSelectList<Dept>()">
+		<div class="col-sm-10">
+
+			<select style="height: 35px; border-color: #dee2e6; border-radius:5px;" class="custom-select w-50" asp-for="Department" asp-items="Html.GetEnumSelectList<Dept>()">
+			<option value="">Please Select</option>
 		</select>
-		<span class="text-danger" asp-validation-for="Department"></span>
+		@* <span class="text-danger" asp-validation-for="Department"></span> *@
+	 </div> 
 
 	</div>
 	<div asp-validation-summary="All" class="text-danger">

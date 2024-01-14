@@ -14,6 +14,7 @@ namespace employeeManagement.Models
         public Dept? Department { get; set; }
 
 		[Required]
+        [Display(Name="Office Email")]
 		public string? Email { get; set; }
 
 
