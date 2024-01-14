@@ -3,7 +3,7 @@
 
 		public enum Dept
 		{
-			None,
+			
 			HR,
 			IT,
 			CS

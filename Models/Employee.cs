@@ -1,11 +1,20 @@
-﻿namespace employeeManagement.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace employeeManagement.Models
 {
     public class Employee
     {
         public int Id { get; set; }
+
+        [Required]
+        [MaxLength(15, ErrorMessage ="Invalid name length")]    
         public string? Name { get; set; } //adding ? to indicate it can be null
+
+        [Required]
         public Dept? Department { get; set; }
-        public string? Email { get; set; }
+
+		[Required]
+		public string? Email { get; set; }
 
 
     }
