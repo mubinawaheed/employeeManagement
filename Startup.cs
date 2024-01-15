@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Builder;
 using employeeManagement.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace employeeManagement
 {
@@ -26,6 +27,7 @@ namespace employeeManagement
             //services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
             //services.AddScoped<IEmployeeRepository, MockEmployeeRepository>();
 			services.AddTransient<IEmployeeRepository, MockEmployeeRepository>();
+            services.AddDbContextPool<AppDbContext>(options=>options.UseSqlServer(_config.GetConnectionString("EmployeeDBConnection")));
 
 		}
         //This method gets called by the runtime
