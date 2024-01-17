@@ -13,5 +13,11 @@ namespace employeeManagement.Models
         //we will use this property to query and save instances of the employee class
         public DbSet<Employee> Employees { get; set; }
 
-    }
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Seed();	
+				
+		}
+
+	}
 }

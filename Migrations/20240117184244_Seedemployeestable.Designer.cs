@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using employeeManagement.Models;
 
@@ -10,9 +11,11 @@ using employeeManagement.Models;
 namespace employeeManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240117184244_Seedemployeestable")]
+    partial class Seedemployeestable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,13 +55,6 @@ namespace employeeManagement.Migrations
                             Department = 1,
                             Email = "mubina@gmail.com",
                             Name = "Mubina"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Department = 1,
-                            Email = "ali@gmail.com",
-                            Name = "Ali"
                         });
                 });
 #pragma warning restore 612, 618
