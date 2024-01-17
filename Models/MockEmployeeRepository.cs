@@ -30,5 +30,28 @@
             _employeeList.Add(employee);
             return employee;
 		}
+
+		public Employee Update(Employee employee)
+		{
+
+			Employee empl = _employeeList.FirstOrDefault(e => e.Id == employee.Id);
+			if (empl != null)
+			{
+                empl.Name = employee.Name;
+                empl.Email = employee.Email;
+                empl.Department = employee.Department;
+			}
+			return empl;
+		}
+
+		public Employee Delete(int id)
+		{
+            Employee empl = _employeeList.FirstOrDefault(e => e.Id == id);
+            if (empl !=null)
+            {
+                _employeeList.Remove(empl);
+            }
+            return empl;
+		}
 	}
 }

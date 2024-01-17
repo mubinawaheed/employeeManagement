@@ -26,7 +26,7 @@ namespace employeeManagement
 			services.AddMvc(options => options.EnableEndpointRouting = false);
             //services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
             //services.AddScoped<IEmployeeRepository, MockEmployeeRepository>();
-			services.AddTransient<IEmployeeRepository, MockEmployeeRepository>();
+			services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
             services.AddDbContextPool<AppDbContext>(options=>options.UseSqlServer(_config.GetConnectionString("EmployeeDBConnection")));
 
 		}
