@@ -6,7 +6,9 @@
 			
 			HR,
 			IT,
-			CS
+			CS,
+			Finance,
+			DevOps
 
 	}
 }

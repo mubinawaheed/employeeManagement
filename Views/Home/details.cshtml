@@ -1,7 +1,8 @@
 ﻿@model HomeDetailsViewModel
 
-<h3>@Model.PageTitle</h3>
-
+@{
+	ViewBag.PageTitle = "Employee details";
+}
 @*View model approach*@
 <div>
 	Name: @Model.Employee.Name
@@ -16,7 +17,7 @@
 	ID: @Model.Employee.Id
 </div>
 
-<img src="~/images/users.jpg" asp-append-version="true" />
+<img src="~/images/@(Model.Employee.ProfileImage ?? "users.jpg")" asp-append-version="true" />
 <a asp-controller="home" asp-action="Index" class="btn btn-secondary btn-sm">Back</a>
 
 @section Scripts{

@@ -1,15 +1,14 @@
-﻿@model Employee
-@inject IEmployeeRepository _empRepository
+﻿@model EmployeeCreateViewModel
 @{
 
 	ViewBag.Title = "Add Employee";
 }
-<form asp-action="Create" asp-controller="Home" method="post" class="my-2">
+<form enctype="multipart/form-data" asp-action="Create" asp-controller="Home" method="post" class="my-3 py-2 px-2">
 	<div class="form-group row my-2" >
 
 		<label class="col-sm-2 col-form-label" asp-for="Name"></label>
 		<div class="col-sm-10">
-			<input class="form-control w-75" asp-for="Name" />
+			<input class="form-control w-75 my-2" asp-for="Name" />
 			@* <span class="text-danger" asp-validation-for="Name"></span> *@
 		</div>
 	</div>
@@ -17,7 +16,7 @@
 	<div class="form-group row my-2">
 		<label class="col-sm-2 col-form-label" asp-for="Email"></label>
 		<div class="col-sm-10">
-			<input type="email" class="form-control w-75" asp-for="Email"  />
+			<input type="email" class="form-control w-75 my-2" asp-for="Email"  />
 			@* <span class="text-danger" asp-validation-for="Email"></span> *@
 
 		</div>
@@ -28,21 +27,25 @@
 		<div class="col-sm-10">
 
 			<select style="height: 36px; border-color: #dee2e6; border-radius:5px;"
-			class="form-control w-75" 
-			asp-for="Department" asp-items="Html.GetEnumSelectList<Dept>()">
+					class="form-control w-75 my-2"
+					asp-for="Department" asp-items="Html.GetEnumSelectList<Dept>()">
 
 			<option value="">Please Select</option>
 		</select>
 		@* <span class="text-danger" asp-validation-for="Department"></span> *@
 	 </div> 
 	</div>
+	<div class="form-group row my-2">
+		<label asp-for="ProfileImage" class="col-sm-2 col-form-label"></label>
+		<input class="form-control my-2" style="margin-left:14px; width:670px;" asp-for="ProfileImage">
+	</div>
 
 	<div asp-validation-summary="All" class="text-danger"></div>
-	<div class="form-group row my-2">
-		<p class="text-success col-sm-10">Total Employees = @_empRepository.GetAllEmployees().Count() </p>
-	</div>
+	
 	<div>
-		<button class="btn btn-primary my-2" type="submit">Submit</button>
+		<button class="btn btn-primary my-3" style="display: block;  margin: 0 auto; width:200px;" type="submit">
+			Submit
+		</button>
 	</div>
 
 
