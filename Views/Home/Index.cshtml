@@ -26,7 +26,11 @@
 					<a href="/home/details/@employee.Id" class="btn btn-secondary btn-sm" role="button">View details</a>*@
 
 					@*using anchor tag helper*@
-					<a asp-controller="Home" asp-action="Details" asp-route-id="@employee.Id" class="btn btn-secondary btn-sm">View</a>
+					<a asp-controller="Home" asp-action="Details" asp-route-id="@employee.Id" class="btn btn-secondary btn-sm mr-2">View</a>
+					<a asp-controller="Home" asp-action="Edit" asp-route-id="@employee.Id" class="btn btn-secondary btn-sm mx-2">Edit</a>
+						<a asp-controller="Home" asp-action="" asp-route-id="@employee.Id" class="btn btn-danger btn-sm mr-2">Delete</a>
+
+
 				</td>
 			</tr>
 				

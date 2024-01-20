@@ -80,5 +80,20 @@ namespace employeeManagement.Controllers
         {
             return View();
         }
-    }
+
+        [HttpGet]
+        public ViewResult Edit(int id)
+        {
+            Employee employee = _employeeRepository.GetEmployee(id);
+            EmployeeEditViewModel employeeEditView = new EmployeeEditViewModel
+            {
+                Id = id,
+                Name = employee.Name,
+                Email = employee.Email,
+                Department = employee.Department,
+                ExistingPhotoPath = employee.ProfileImage
+            };
+            return View(employeeEditView);
+        }
+	}
 }

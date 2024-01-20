@@ -1,0 +1,62 @@
+﻿@model EmployeeEditViewModel
+@{
+
+	ViewBag.Title = "Edit Employee";
+}
+<form enctype="multipart/form-data" asp-action="Create" asp-controller="Home" method="post" class="my-3 py-2 px-2">
+
+	<input hidden asp-for="Id"/>
+	<input hidden asp-for="ExistingPhotoPath" />
+
+	<div class="form-group row my-2">
+
+		<label class="col-sm-2 col-form-label" asp-for="Name"></label>
+		<div class="col-sm-10">
+			<input class="form-control w-75 my-2" asp-for="Name" />
+			@* <span class="text-danger" asp-validation-for="Name"></span> *@
+		</div>
+	</div>
+
+	<div class="form-group row my-2">
+		<label class="col-sm-2 col-form-label" asp-for="Email"></label>
+		<div class="col-sm-10">
+			<input type="email" class="form-control w-75 my-2" asp-for="Email" />
+			@* <span class="text-danger" asp-validation-for="Email"></span> *@
+
+		</div>
+	</div>
+
+	<div class="form-group row my-2">
+		<label class="col-sm-2 col-form-label" asp-for="Department"></label>
+		<div class="col-sm-10">
+
+			<select style="height: 36px; border-color: #dee2e6; border-radius:5px;"
+					class="form-control w-75 my-2"
+					asp-for="Department" asp-items="Html.GetEnumSelectList<Dept>()">
+
+				<option value="">Please Select</option>
+			</select>
+			@* <span class="text-danger" asp-validation-for="Department"></span> *@
+		</div>
+	</div>
+	<div class="form-group row my-2">
+		<label asp-for="ProfileImage" class="col-sm-2 col-form-label"></label>
+		<input multiple class="form-control my-2" style="margin-left:14px; width:670px;" asp-for="ProfileImage">
+	</div>
+
+	<div asp-validation-summary="All" class="text-danger"></div>
+
+	<div class="d-flex">
+		<button class="btn btn-primary my-3 mx-2" style="width:200px;">
+			Save Changes
+		</button>
+		<button class="btn btn-secondary my-3" asp-action="Index" asp-controller="home" style="width:200px;">
+			Cancel
+		</button>
+	</div>
+
+	<div>
+		
+	</div>
+
+</form>
