@@ -17,6 +17,6 @@ namespace employeeManagement.ViewModels
 		[Display(Name = "Office Email")]
 		public string? Email { get; set; }
 
-		public IFormFile? ProfileImage { get; set; }
+		public List<IFormFile>? ProfileImage { get; set; }
 	}
 }

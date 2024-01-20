@@ -51,12 +51,16 @@ namespace employeeManagement.Controllers
             if (ModelState.IsValid)
             {
                 string? fileName = null;
-                if(model.ProfileImage!= null)
+                if(model.ProfileImage!= null && model.ProfileImage.Count>0)
                 {
-                    string folderName = Path.Combine(_webHostEnvironment.WebRootPath, "images");
-                    fileName = Guid.NewGuid().ToString() + "_" + model.ProfileImage.FileName;
-                    string combinedPath = Path.Combine(folderName, fileName);
-                    model.ProfileImage.CopyTo(new FileStream(combinedPath, FileMode.Create));
+                    foreach (IFormFile photo in model.ProfileImage)
+                    {
+                        string folderName = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                        fileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                        string combinedPath = Path.Combine(folderName, fileName);
+                        photo.CopyTo(new FileStream(combinedPath, FileMode.Create));
+                        
+                    }
                 }
                 Employee employee = new Employee{
                     Name = model.Name,
