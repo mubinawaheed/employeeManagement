@@ -17,6 +17,8 @@ namespace employeeManagement.Models
         [Display(Name="Office Email")]
 		public string? Email { get; set; }
 
+        public string? ProfileImage { get; set; }
+
 
     }
 }
