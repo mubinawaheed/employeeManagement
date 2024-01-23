@@ -33,12 +33,11 @@ namespace employeeManagement
         //This method gets called by the runtime
         public void Configure(IApplicationBuilder app /*<--this is an interface*/, IWebHostEnvironment env, ILogger<Startup> logger)
         {
-            if (env.IsDevelopment())
+            if (env.IsProduction())
             {
                 //This is a middleware
                 app.UseDeveloperExceptionPage();
             }
-
             app.Use(async (context, next) =>
             {
                 logger.LogInformation("MW:1 incomming request");
@@ -57,17 +56,19 @@ namespace employeeManagement
 			//app.UseMvcWithDefaultRoute();
 
 			//conventional routing
+			app.UseStatusCodePagesWithRedirects("/Error/{0}"); //route = error/<statuscodevalue>
+
 			app.UseMvc(routes =>
 			{
-				routes.MapRoute(name: "default", template: "api/{controller=Home}/{action=Index}/{id?}");
+				routes.MapRoute(name: "default", template: "/{controller=Home}/{action=Index}/{id?}");
 			}); //1st param: route name 2nd param: template
 
 
             //5th middleware. This is a terminal middleware
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("hello world");
-            }); 
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("hello world");
+            //}); 
         }
     }
 }
