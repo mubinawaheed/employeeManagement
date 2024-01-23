@@ -31,6 +31,12 @@ namespace employeeManagement.Controllers
 		//[Route("{id?}")]
 		public ViewResult Details(int? id)
         {
+            Employee employee = _employeeRepository.GetEmployee(id??1);
+            if(employee == null)
+            {
+                Response.StatusCode = 404;
+                return View("EmployeeNotFound", id.Value);
+            }
             //we can also return the data as ObjectResult type. Also, If we are building API, we'll return modeldata as json type, else we return a view type result.
             Employee model = _employeeRepository.GetEmployee(id??1); 
 
@@ -126,8 +132,6 @@ namespace employeeManagement.Controllers
                     {
                         photo.CopyTo(fileStream);
                     }
-					
-
 				}
 			}
 
