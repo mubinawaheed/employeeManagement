@@ -38,25 +38,14 @@ namespace employeeManagement
                 //This is a middleware
                 app.UseDeveloperExceptionPage();
             }
-            app.Use(async (context, next) =>
-            {
-                logger.LogInformation("MW:1 incomming request");
-                await next();
-                logger.LogInformation("MW1: outgoing response");
-            });
 
-            app.Use(async (context, next) =>
-            {
-                logger.LogInformation("MW:2 incomming request");
-                await next();
-                logger.LogInformation("MW:2 outgoing response");
-            });
+			app.UseStatusCodePagesWithReExecute("/Error/{0}"); //route = error/<statuscodevalue> it reexecutes the pipeline
 
-            app.UseStaticFiles();
+
+			app.UseStaticFiles();
 			//app.UseMvcWithDefaultRoute();
 
 			//conventional routing
-			app.UseStatusCodePagesWithRedirects("/Error/{0}"); //route = error/<statuscodevalue>
 
 			app.UseMvc(routes =>
 			{
