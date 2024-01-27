@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace employeeManagement.Controllers
@@ -22,6 +23,16 @@ namespace employeeManagement.Controllers
 					break;
 			}
 			return View("~/Views/Home/NotFound.cshtml");	
+		}
+		[Route("Error")]
+		[AllowAnonymous]
+		public IActionResult Error()
+		{
+			var exceptionDetails = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+			ViewBag.ExceptionPath = exceptionDetails?.Path;
+			ViewBag.ErrorDetails = exceptionDetails?.Error.Message;
+			ViewBag.stackTrace = exceptionDetails?.Error.StackTrace;
+			return View("~/Views/Shared/Error.cshtml");
 		}
 	}
 }

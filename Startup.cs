@@ -33,15 +33,16 @@ namespace employeeManagement
         //This method gets called by the runtime
         public void Configure(IApplicationBuilder app /*<--this is an interface*/, IWebHostEnvironment env, ILogger<Startup> logger)
         {
-            if (env.IsProduction())
+            if (env.IsDevelopment())
             {
                 //This is a middleware
                 app.UseDeveloperExceptionPage();
             }
-
-			app.UseStatusCodePagesWithReExecute("/Error/{0}"); //route = error/<statuscodevalue> it reexecutes the pipeline
-
-
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseStatusCodePagesWithReExecute("/Error/{0}"); //route = error/<statuscodevalue> it reexecutes the pipeline
+            }
 			app.UseStaticFiles();
 			//app.UseMvcWithDefaultRoute();
 
