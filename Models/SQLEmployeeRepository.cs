@@ -4,10 +4,12 @@ namespace employeeManagement.Models
 	public class SQLEmployeeRepository : IEmployeeRepository
 	{
 		private readonly AppDbContext context;
+		private readonly ILogger<SQLEmployeeRepository> logger;
 
-		public SQLEmployeeRepository(AppDbContext context)
+		public SQLEmployeeRepository(AppDbContext context, ILogger<SQLEmployeeRepository> logger)
         {
 			this.context = context;
+			this.logger = logger;
 		}
 
 		public Employee AddEmployee(Employee employee)
@@ -37,8 +39,13 @@ namespace employeeManagement.Models
 
 		public Employee GetEmployee(int id)
 		{
+			logger.LogInformation("info----------0");
+			logger.LogCritical("critical----------0");
+			logger.LogWarning("warning----------0");
+			logger.LogTrace("trace----------0");
 			return context.Employees.Find(id);
 		}
+		
 
 		public Employee Update(Employee employeeChanges)
 		{

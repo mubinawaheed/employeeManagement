@@ -1,5 +1,6 @@
 ﻿using employeeManagement.Models;
 using employeeManagement.ViewModels;
+using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,14 @@ namespace employeeManagement.Controllers
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
+		private readonly ILogger logger;
 
-        //Constructor injection
-        public HomeController(IEmployeeRepository employeeRepository, IWebHostEnvironment env)
+		//Constructor injection
+		public HomeController(IEmployeeRepository employeeRepository, IWebHostEnvironment env, ILogger<HomeController> logger)
         {
             _employeeRepository = employeeRepository;
 			_webHostEnvironment = env;
+			this.logger = logger;
 		}
  
 		public ViewResult Index()
@@ -33,9 +36,15 @@ namespace employeeManagement.Controllers
         {
             //throw new Exception("Error processing the request");
             Employee employee = _employeeRepository.GetEmployee(id??1);
-            if(employee == null)
+            logger.LogDebug("Debug 0");
+			logger.LogInformation("info----------0");
+			logger.LogCritical("critical----------0");
+			logger.LogWarning("warning----------0");
+			logger.LogTrace("trace----------0");
+			if (employee == null)
             {
                 Response.StatusCode = 404;
+                
                 return View("EmployeeNotFound", id.Value);
             }
             //we can also return the data as ObjectResult type. Also, If we are building API, we'll return modeldata as json type, else we return a view type result.

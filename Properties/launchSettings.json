@@ -4,7 +4,7 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Staging",
+        "ASPNETCORE_ENVIRONMENT": "Development",
         "MyKey": "Value of my key from Environment variables.json file"
 
       },
