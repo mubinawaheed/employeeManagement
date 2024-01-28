@@ -6,7 +6,15 @@ namespace employeeManagement.Controllers
 {
 	public class ErrorController:Controller
 	{
-		[Route("Error/{statusCode}")]
+		private readonly ILogger<ErrorController> logger;
+
+		public ErrorController(ILogger<ErrorController> logger)
+        {
+			this.logger = logger;
+		}
+
+		//This function is executed when a user tries to access a url that does not exist
+        [Route("Error/{statusCode}")]
 		public IActionResult HttpStatusCodeHandler (int statusCode)
 		{
 			var statusCodeResult = HttpContext.Features.Get<IStatusCodeReExecuteFeature> ();
@@ -14,8 +22,7 @@ namespace employeeManagement.Controllers
 			{
 				case 404:
 					ViewBag.ErrorMessage = "Sorry, the resource you requested cannot be found";
-					ViewBag.path = statusCodeResult?.OriginalPath;
-					ViewBag.QS = statusCodeResult?.OriginalQueryString;
+					logger.LogWarning($"{statusCode} error occured. Path = {statusCodeResult.OriginalPath}");
 					break;
 
 				case 500:
@@ -29,9 +36,7 @@ namespace employeeManagement.Controllers
 		public IActionResult Error()
 		{
 			var exceptionDetails = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
-			ViewBag.ExceptionPath = exceptionDetails?.Path;
-			ViewBag.ErrorDetails = exceptionDetails?.Error.Message;
-			ViewBag.stackTrace = exceptionDetails?.Error.StackTrace;
+			logger.LogError($"{exceptionDetails?.Path} threw new error {exceptionDetails?.Error}");
 			return View("~/Views/Shared/Error.cshtml");
 		}
 	}

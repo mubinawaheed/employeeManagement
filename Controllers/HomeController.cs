@@ -31,7 +31,7 @@ namespace employeeManagement.Controllers
 		//[Route("{id?}")]
 		public ViewResult Details(int? id)
         {
-            throw new Exception("Error processing the request");
+            //throw new Exception("Error processing the request");
             Employee employee = _employeeRepository.GetEmployee(id??1);
             if(employee == null)
             {
