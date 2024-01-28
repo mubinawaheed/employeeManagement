@@ -3,6 +3,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 
 namespace employeeManagement
 {
@@ -16,7 +17,21 @@ namespace employeeManagement
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
            return WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+				.ConfigureLogging((hostingContext, loggingBuilder) =>
+				{
+					//loggingBuilder.Configure(options =>
+					//{
+					//	options.ActivityTrackingOptions = ActivityTrackingOptions.SpanId
+					//										| ActivityTrackingOptions.TraceId
+					//										| ActivityTrackingOptions.ParentId;
+					//});
+					loggingBuilder.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+					loggingBuilder.AddConsole();
+					loggingBuilder.AddDebug();
+					loggingBuilder.AddEventSourceLogger();
+					loggingBuilder.AddNLog();
+				})
+				.UseStartup<Startup>();
         }
     }
 }
