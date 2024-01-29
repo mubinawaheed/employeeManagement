@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Builder;
 using employeeManagement.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace employeeManagement
 {
@@ -27,6 +28,7 @@ namespace employeeManagement
             //services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
             //services.AddScoped<IEmployeeRepository, MockEmployeeRepository>();
 			services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             services.AddDbContextPool<AppDbContext>(options=>options.UseSqlServer(_config.GetConnectionString("EmployeeDBConnection")));
 
 		}
@@ -46,19 +48,16 @@ namespace employeeManagement
 			app.UseStaticFiles();
 			//app.UseMvcWithDefaultRoute();
 
-			//conventional routing
+            app.UseAuthentication(); 
 
+			//conventional routing
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(name: "default", template: "/{controller=Home}/{action=Index}/{id?}");
 			}); //1st param: route name 2nd param: template
 
 
-            //5th middleware. This is a terminal middleware
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("hello world");
-            //}); 
+       
         }
     }
 }
