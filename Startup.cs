@@ -28,7 +28,12 @@ namespace employeeManagement
             //services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
             //services.AddScoped<IEmployeeRepository, MockEmployeeRepository>();
 			services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            
+            services.AddIdentity<IdentityUser, IdentityRole>(options => {  //overriding default password validations
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredUniqueChars = 3;
+            }).AddEntityFrameworkStores<AppDbContext>();
             services.AddDbContextPool<AppDbContext>(options=>options.UseSqlServer(_config.GetConnectionString("EmployeeDBConnection")));
 
 		}
