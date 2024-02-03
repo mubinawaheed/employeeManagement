@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Builder;
 using employeeManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace employeeManagement
 {
@@ -24,7 +26,10 @@ namespace employeeManagement
         public void ConfigureServices(IServiceCollection services)
         {
 			services.AddControllersWithViews().AddRazorRuntimeCompilation();
-			services.AddMvc(options => options.EnableEndpointRouting = false);
+			services.AddMvc(options => { options.EnableEndpointRouting = false;
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            });
 			services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
             
             services.AddIdentity<IdentityUser, IdentityRole>(options => {  //overriding default password validations
@@ -52,7 +57,7 @@ namespace employeeManagement
 			//app.UseMvcWithDefaultRoute();
 
             app.UseAuthentication(); 
-
+            app.UseAuthorization(); 
 			//conventional routing
 			app.UseMvc(routes =>
 			{

@@ -5,13 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Security.AccessControl;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace employeeManagement.Controllers
 {
-	//[Route("Home")]
-	//[Route("[controller]/[action]")] //Attribute routing aslo supports token replacement. controller is replaced with class name i.e. HOME and action is replaced with method name
-	public class HomeController : Controller
+    //[Route("Home")]
+    //[Route("[controller]/[action]")] //Attribute routing aslo supports token replacement. controller is replaced with class name i.e. HOME and action is replaced with method name
+    [Authorize]
+    public class HomeController : Controller
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -24,14 +26,17 @@ namespace employeeManagement.Controllers
 			_webHostEnvironment = env;
 			this.logger = logger;
 		}
- 
-		public ViewResult Index()
+
+        [AllowAnonymous]
+        public ViewResult Index()
         {
             var model = _employeeRepository.GetAllEmployees();
             return View(model);
         }
-		//[Route("details/{id?}")] //question mark makes the id param optional
-		//[Route("{id?}")]
+        //[Route("details/{id?}")] //question mark makes the id param optional
+        //[Route("{id?}")]
+
+        [AllowAnonymous]
 		public ViewResult Details(int? id)
         {
             //throw new Exception("Error processing the request");
@@ -60,6 +65,7 @@ namespace employeeManagement.Controllers
 
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Create(EmployeeCreateViewModel model) //both viewResult and redirectToaction result implement this inteface IActionResult
         {
@@ -101,7 +107,8 @@ namespace employeeManagement.Controllers
         }
 
         [HttpPost]
-		public IActionResult Edit(EmployeeEditViewModel model) //both viewResult and redirectToaction result implement this inteface IActionResult
+        [Authorize]
+        public IActionResult Edit(EmployeeEditViewModel model) //both viewResult and redirectToaction result implement this inteface IActionResult
 		{
 			if (ModelState.IsValid)
 			{

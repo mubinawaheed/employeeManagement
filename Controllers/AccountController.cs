@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using employeeManagement.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace employeeManagement.Controllers
 {
@@ -15,17 +16,20 @@ namespace employeeManagement.Controllers
             this.signInManager = signInManager;
         }
         [HttpGet]
+        [AllowAnonymous]
 		public IActionResult Register()
 		{
 			return View();
 		}
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if(ModelState.IsValid)
@@ -54,6 +58,7 @@ namespace employeeManagement.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
