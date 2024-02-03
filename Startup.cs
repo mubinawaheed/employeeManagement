@@ -25,8 +25,6 @@ namespace employeeManagement
         {
 			services.AddControllersWithViews().AddRazorRuntimeCompilation();
 			services.AddMvc(options => options.EnableEndpointRouting = false);
-            //services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
-            //services.AddScoped<IEmployeeRepository, MockEmployeeRepository>();
 			services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
             
             services.AddIdentity<IdentityUser, IdentityRole>(options => {  //overriding default password validations

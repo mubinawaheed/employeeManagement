@@ -28,7 +28,7 @@ namespace employeeManagement.Controllers
                 var result= await userManager.CreateAsync(user, password: model.Password);
                 if (result.Succeeded)
                 {
-                    await signInManager.SignInAsync(user, isPersistent: false); //This bool param is used to define whether we want to create a session cookie or a permanent cookie
+                    await signInManager.SignInAsync(user, isPersistent: true); //This bool param is used to define whether we want to create a session cookie or a permanent cookie
                     return RedirectToAction("index", "home");
                 }
                 foreach(var error in result.Errors)
@@ -37,6 +37,13 @@ namespace employeeManagement.Controllers
                 }
             }
             return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("index", "home");
+
         }
     }
 }
