@@ -19,6 +19,12 @@ namespace employeeManagement.Controllers
 		{
 			return View();
 		}
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -28,7 +34,7 @@ namespace employeeManagement.Controllers
                 var result= await userManager.CreateAsync(user, password: model.Password);
                 if (result.Succeeded)
                 {
-                    await signInManager.SignInAsync(user, isPersistent: true); //This bool param is used to define whether we want to create a session cookie or a permanent cookie
+                    await signInManager.SignInAsync(user, isPersistent: false); //This bool param is used to define whether we want to create a session cookie or a permanent cookie
                     return RedirectToAction("index", "home");
                 }
                 foreach(var error in result.Errors)
@@ -44,6 +50,24 @@ namespace employeeManagement.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("index", "home");
 
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("index", "home");
+                }
+                
+                    ModelState.AddModelError("", "invalid credentials");
+                
+            }
+            return View(model);
         }
     }
 }
