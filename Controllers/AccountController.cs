@@ -50,7 +50,19 @@ namespace employeeManagement.Controllers
             }
             return View(model);
         }
-        [HttpPost]
+        [AcceptVerbs("Post", "Get")]
+		[AllowAnonymous]
+		public async Task<IActionResult> CheckEmail(string email)
+		{
+           var user = await userManager.FindByEmailAsync(email);
+            if(user == null)
+            {
+                return Json(true);
+            }
+            return Json("Email is already in use");
+
+		}
+		[HttpPost]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
