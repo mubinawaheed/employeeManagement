@@ -32,7 +32,7 @@ namespace employeeManagement
             });
 			services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
             
-            services.AddIdentity<IdentityUser, IdentityRole>(options => {  //overriding default password validations
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => {  //overriding default password validations
                 options.Password.RequiredLength = 6;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequiredUniqueChars = 3;
