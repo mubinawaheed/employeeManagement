@@ -1,0 +1,27 @@
+﻿@model IEnumerable<IdentityRole>
+@{
+	ViewBag.Title = "Roles List";
+}
+@* <div class="d-flex justify-content-around"> *@
+@if (Model.Any())
+{
+
+	foreach(var role in Model)
+	{
+
+		<div class="card bg-light my-3" style="max-width: 20rem;">
+			<div class="card-header"> <strong>Role ID :</strong> @role.Id</div>
+			<div class="card-body">
+				<p class="card-title">Role Name : @role.Name</p>
+				
+			</div>
+		</div>
+	}
+
+}
+@* </div> *@
+
+else
+{
+	<h3 class="text-center">No roles</h3>
+}
