@@ -13,7 +13,10 @@
 			<div class="card-header"> <strong>Role ID :</strong> @role.Id</div>
 			<div class="card-body">
 				<p class="card-title">Role Name : @role.Name</p>
-				
+			</div>
+			<div class="my-1 text-center">
+				<a class="btn btn-primary text-center" asp-action="EditRole" asp-controller="Administration" asp-route-id="@role.Id">Edit</a>
+				<a asp-action="DeleteRole" asp-controller="Administration" asp-route-id="@role.Id" class="btn btn-secondary text-center">Delete</a>
 			</div>
 		</div>
 	}

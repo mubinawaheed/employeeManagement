@@ -1,6 +1,8 @@
-﻿using employeeManagement.ViewModels;
+﻿using employeeManagement.Models;
+using employeeManagement.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace employeeManagement.Controllers
 {
@@ -8,14 +10,17 @@ namespace employeeManagement.Controllers
     {
         private readonly RoleManager<IdentityRole> roleManager;
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager)
+        private readonly UserManager<ApplicationUser> userManager;
+
+        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             this.roleManager = roleManager;
+            this.userManager = userManager;
         }
 
         [HttpGet]
-        public IActionResult CreateRole () {
-            return View();  
+        public IActionResult CreateRole() {
+            return View();
         }
 
         [HttpPost]
@@ -29,12 +34,12 @@ namespace employeeManagement.Controllers
                 };
                 IdentityResult result = await roleManager.CreateAsync(identityRole);
 
-                if(result.Succeeded) {
+                if (result.Succeeded) {
                     return RedirectToAction("ListRoles", "Administration");
                 }
                 foreach (IdentityError error in result.Errors)
                 {
-                    ModelState.AddModelError("", error.Description);   
+                    ModelState.AddModelError("", error.Description);
                 }
             }
             return View();
@@ -43,7 +48,56 @@ namespace employeeManagement.Controllers
         [HttpGet]
         public IActionResult ListRoles() {
             var roles = roleManager.Roles;
-            return View(roles); 
+            return View(roles);
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> EditRole(string Id)
+        {
+            var role = await roleManager.FindByIdAsync(Id);
+            if (role == null)
+            {
+                ViewBag.ErrorMessage = $"Role with ID = {Id} Not foound";
+                return View("NotFound");
+
+            };
+            var model = new EditRoleViewModel
+            {
+                Id = role.Id,
+                RoleName = role.Name
+            };
+            foreach (var user in userManager.Users)
+            {
+             if(await userManager.IsInRoleAsync(user, role.Name))
+                {
+                    model.Users.Add(user.UserName);
+                }   
+            }
+            return View(model);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditRole( EditRoleViewModel model)
+        {
+            var role = await roleManager.FindByIdAsync(model.Id);
+            if (role == null)
+            {
+                ViewBag.ErrorMessage = $"Role with ID = {model.Id} Not found";
+                return View("NotFound");
+            }
+            else {
+                role.Name = model.RoleName;
+                var result =await roleManager.UpdateAsync(role);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ListRoles");
+                }
+            }
+            return View(model);
+
+        }
+
     }
 }
